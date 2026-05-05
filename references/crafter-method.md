@@ -11,7 +11,7 @@ Use the CRAFTER method to create personas that are useful for requirements engin
 - Separate internal and external factors. Balance personal traits with environment and system-use context.
 - Use role-play prompting. The GenAI tool should act as a persona researcher, requirements analyst, or UX researcher.
 - Use one-shot or template guidance. Give a clear target structure so generated personas are consistent.
-- Output structured data first, then produce a readable persona document for end users.
+- Output structured data first, then produce the user-selected artifact format.
 - Review for realism. Check for vague, over-polished, stereotyped, or unsupported claims.
 
 ## Inputs
@@ -26,6 +26,7 @@ Collect these inputs before generation:
 - `external_factors`: Selected environment, technology, social, organizational, cultural, policy, economic, or task constraints.
 - `language`: Output language.
 - `detail_level`: Short, medium, or long.
+- `output_format`: JSON, DOCX, PDF, Markdown, or PPT/PPTX.
 - `known_assumptions`: Assumptions that should be labeled rather than treated as facts.
 
 ## Internal Layer
@@ -68,7 +69,7 @@ External factors describe the context around the person:
 6. Include the taxonomy object that records the factors used.
 7. Label assumptions.
 8. Run a quality review and revise if needed.
-9. Present the final result as a readable DOCX document when file generation is available.
+9. Present the final result in the requested format.
 
 ## Quality Review
 
@@ -100,9 +101,11 @@ Check:
 - Remove unsupported sensitive attributes.
 - Split into multiple personas if one persona is carrying conflicting user types.
 
-## Document Output
+## Output Formats
 
-The final persona should be easy for researchers, designers, students, and stakeholders to read. Prefer DOCX when possible, using this section order:
+The final persona should be easy for researchers, designers, students, and stakeholders to use. Keep JSON as the structured source and adapt the presentation to the requested format.
+
+Use JSON when the user needs machine-readable output. Use readable sections when producing DOCX, PDF, Markdown, or slides:
 
 1. Persona name, domain, and target user group
 2. Quote
@@ -116,4 +119,12 @@ The final persona should be easy for researchers, designers, students, and stake
 10. Assumptions and evidence notes
 11. Quality review
 
-Keep raw JSON as a source format, not the main reader-facing format.
+For PPT/PPTX, split the content into a small deck:
+
+1. Persona overview
+2. Persona story and quote
+3. Internal and external factors
+4. Requirements/design insights
+5. Assumptions and quality review
+
+Keep raw JSON as a source format unless JSON is the requested final output.

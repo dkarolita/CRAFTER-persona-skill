@@ -1,15 +1,15 @@
 # CRAFTER Persona Skill
 
-An open-source, platform-neutral skill for creating user personas using the CRAFTER 2.0 workflow and thinking. The preferred final output is a readable `.docx` persona document.
+An open-source, platform-neutral skill for creating user personas using the CRAFTER 2.0 workflow and thinking. Users can choose the output format they prefer: JSON, DOCX, PDF, Markdown, or PPT/PPTX.
 
-CRAFTER 2.0 is an LLM-powered persona creation approach that combines human input, context grounding, internal and external taxonomy factors, role-play prompting, structured persona data, readable document output, and quality review.
+CRAFTER 2.0 is an LLM-powered persona creation approach that combines human input, context grounding, internal and external taxonomy factors, role-play prompting, structured persona data, readable artifacts, and quality review.
 
 ## What This Skill Helps With
 
 - Create user personas for requirements engineering, UX research, product discovery, service design, and human-centered design.
 - Structure persona inputs using internal and external factors.
 - Ground generated personas in interviews, survey summaries, research notes, reviews, or domain context.
-- Produce readable persona documents with narrative, bullet, mixed, quote, taxonomy, assumptions, requirements insights, and quality review.
+- Produce personas as JSON, DOCX, PDF, Markdown, or presentation-ready slide content.
 - Adapt the CRAFTER workflow to Codex, ChatGPT, Claude, Gemini, Copilot, or another GenAI tool.
 
 ## Use In Codex
@@ -33,6 +33,14 @@ When Codex can create files, ask:
 Create the final persona as a DOCX file.
 ```
 
+Or choose another format:
+
+```text
+Create the persona as JSON.
+Create the persona as a PDF.
+Create the persona as a PPTX presentation.
+```
+
 ## Use In Any GenAI Tool
 
 If your AI tool does not support Codex skills, open:
@@ -53,7 +61,7 @@ Language:
 Detail level:
 ```
 
-If the tool supports file generation, ask it to create a `.docx`. If it does not, ask for DOCX-ready Markdown that can be pasted into Word or Google Docs.
+If the tool supports file generation, ask it to create your preferred format. If it does not, ask for Markdown that is ready to copy into Word, Google Docs, slides, or another editor.
 
 ## Example
 
@@ -68,7 +76,16 @@ Internal factors: motivation, health anxiety, daily routines, digital literacy
 External factors: family support, smartphone access, internet reliability, clinic advice
 Language: English
 Detail level: medium
+Output format: DOCX
 ```
+
+## Output Format Options
+
+- `JSON`: Best for developers, APIs, databases, or later conversion.
+- `DOCX`: Best for reading and stakeholder review.
+- `PDF`: Best for fixed sharing or submission.
+- `PPT/PPTX`: Best for workshops, presentations, and classroom discussion.
+- `Markdown`: Best when the AI tool cannot create files.
 
 ## Convert Persona JSON To DOCX
 

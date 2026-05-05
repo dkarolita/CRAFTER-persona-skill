@@ -20,6 +20,9 @@ Language:
 Detail level:
 [short | medium | long]
 
+Output format:
+[json | docx | pdf | markdown | pptx]
+
 Evidence and context:
 [Paste interviews, survey findings, user reviews, research notes, domain facts, stakeholder assumptions, product context, or write "No direct evidence available".]
 
@@ -73,7 +76,11 @@ Instructions:
 }
 ```
 
-6. Then transform the persona into a DOCX-ready document with these sections:
+6. Then transform the persona into the requested output format.
+
+For `json`, return only valid JSON unless the user asks for commentary.
+
+For `docx`, `pdf`, or `markdown`, use these sections:
 
 - Title: persona name and domain
 - Quote
@@ -86,7 +93,15 @@ Instructions:
 - Assumptions and evidence notes
 - Quality review
 
-If you can create files, produce the final answer as a `.docx` file. If you cannot create files, produce clean Markdown that can be copied into Word or Google Docs. Do not show raw JSON unless asked.
+For `pptx`, create concise slide content:
+
+- Slide 1: Persona overview
+- Slide 2: Persona story and quote
+- Slide 3: Internal and external factors
+- Slide 4: Requirements or design insights
+- Slide 5: Assumptions and quality review
+
+If you can create files, produce the requested file. If you cannot create files, produce clean Markdown that can be copied into the user's preferred tool. Do not show raw JSON unless JSON is requested or the user asks for it.
 
 ## Follow-Up Refinement Prompt
 
