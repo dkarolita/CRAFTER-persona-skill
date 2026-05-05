@@ -37,7 +37,10 @@ Instructions:
 2. Balance internal and external factors.
 3. Avoid stereotypes, generic traits, and overly idealized behavior.
 4. Create a persona that is useful for requirements engineering, UX research, or product design decisions.
-5. First create structured persona data using this JSON shape:
+5. Include motivation, goals, and pain points as minimum human characteristics.
+6. When possible, distinguish internal motivation/goals/pain points from external motivation/goals/pain points.
+7. Explain relationships between internal and external factors.
+8. First create structured persona data using this JSON shape:
 
 {
   "result": {
@@ -56,6 +59,23 @@ Instructions:
     "external": [
       { "name": "...", "title": "...", "description": "..." }
     ]
+  },
+  "minimum_human_characteristics": {
+    "motivation": {
+      "internal": "...",
+      "external": "...",
+      "relationship": "..."
+    },
+    "goals": {
+      "internal": "...",
+      "external": "...",
+      "relationship": "..."
+    },
+    "pain_points": {
+      "internal": "...",
+      "external": "...",
+      "relationship": "..."
+    }
   },
   "assumptions": [
     "..."
@@ -76,7 +96,7 @@ Instructions:
 }
 ```
 
-6. Then transform the persona into the requested output format.
+9. Then transform the persona into the requested output format.
 
 For `json`, return only valid JSON unless the user asks for commentary.
 
@@ -89,6 +109,8 @@ For `docx`, `pdf`, or `markdown`, use these sections:
 - Goals, needs, frustrations, and constraints
 - Internal factors
 - External factors
+- Motivation, goals, and pain points
+- Relationships between internal and external factors
 - Requirements or design insights
 - Assumptions and evidence notes
 - Quality review
@@ -98,8 +120,9 @@ For `pptx`, create concise slide content:
 - Slide 1: Persona overview
 - Slide 2: Persona story and quote
 - Slide 3: Internal and external factors
-- Slide 4: Requirements or design insights
-- Slide 5: Assumptions and quality review
+- Slide 4: Motivation, goals, pain points, and relationships
+- Slide 5: Requirements or design insights
+- Slide 6: Assumptions and quality review
 
 If you can create files, produce the requested file. If you cannot create files, produce clean Markdown that can be copied into the user's preferred tool. Do not show raw JSON unless JSON is requested or the user asks for it.
 

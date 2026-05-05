@@ -111,6 +111,34 @@ def quality_lines(quality: Any) -> list[str]:
     return lines
 
 
+def minimum_characteristic_lines(value: Any) -> list[str]:
+    if not isinstance(value, dict):
+        return normalize_lines(value)
+    lines = []
+    labels = {
+        "motivation": "Motivation",
+        "goals": "Goals",
+        "pain_points": "Pain Points",
+    }
+    for key, label in labels.items():
+        item = value.get(key)
+        if isinstance(item, dict):
+            internal = as_text(item.get("internal"))
+            external = as_text(item.get("external"))
+            relationship = as_text(item.get("relationship"))
+            if internal:
+                lines.append(f"{label} - Internal: {internal}")
+            if external:
+                lines.append(f"{label} - External: {external}")
+            if relationship:
+                lines.append(f"{label} - Relationship: {relationship}")
+        else:
+            text = as_text(item)
+            if text:
+                lines.append(f"{label}: {text}")
+    return lines
+
+
 def build_document(data: dict[str, Any]) -> str:
     result = data.get("result", {})
     taxonomy = data.get("taxonomy", {})
@@ -145,6 +173,15 @@ def build_document(data: dict[str, Any]) -> str:
         parts.extend(
             [heading("External Factors", 1)]
             + [bullet(line) for line in factor_lines(taxonomy.get("external"))]
+        )
+
+    min_lines = minimum_characteristic_lines(
+        data.get("minimum_human_characteristics")
+    )
+    if min_lines:
+        parts.extend(
+            [heading("Motivation, Goals, And Pain Points", 1)]
+            + [bullet(line) for line in min_lines]
         )
 
     parts.extend(

@@ -9,13 +9,16 @@ description: Create high-quality user personas using the CRAFTER 2.0 workflow an
 
 Use this skill to create personas with the CRAFTER 2.0 method, independent of any specific app, model, or platform. The method combines human input, domain grounding, taxonomy-guided persona characteristics, role-play prompting, optional retrieved/context documents, structured persona data, format-specific presentation, and quality review for realism and usefulness.
 
+CRAFTER's taxonomy separates persona information into an internal layer and an external layer. It treats motivation, goals, and pain points as minimum human characteristics that every persona should capture. Read `references/persona-taxonomy-insights.md` when the request involves taxonomy design, persona quality, minimum persona content, internal/external layers, or research background.
+
 ## First Steps
 
 1. Identify the persona purpose: requirements elicitation, product discovery, UX design, service design, evaluation, or another use.
 2. Ask for or infer the domain, target user group, available evidence, and desired output language.
 3. Gather human-provided context before generating: research notes, interviews, survey summaries, stakeholder assumptions, product constraints, market/domain facts, or usage scenarios.
 4. Separate persona factors into internal and external layers.
-5. Generate a structured persona, critique and refine it, then produce the requested output format.
+5. Capture motivation, goals, and pain points as minimum human characteristics.
+6. Generate a structured persona, critique and refine it, then produce the requested output format.
 
 ## CRAFTER Workflow
 
@@ -49,12 +52,27 @@ When evidence is missing, mark assumptions clearly and avoid presenting invented
 
 Use two layers:
 
-- Internal layer: traits inside the person, such as goals, motivations, fears, confidence, habits, capabilities, accessibility needs, emotions, prior knowledge, and decision criteria.
-- External layer: surrounding context, such as environment, devices, social support, organizational constraints, culture, policies, budget, time pressure, infrastructure, and task setting.
+- Internal layer: general information about the represented individual, such as demographic/background details, personal attributes, physical and mental well-being, motivations, goals, pain points, confidence, habits, capabilities, emotions, prior knowledge, and decision criteria.
+- External layer: context-specific information about the represented individual, such as personal story in the project context, technology interaction, skill level, education, language, values, socio-economic status, work status, family environment, location, communication style, culture, policies, budget, time pressure, infrastructure, devices, and task setting.
 
 Choose only factors that matter for the current design or requirements problem.
 
-### 4. Generate Structured Persona Data
+### 4. Capture Minimum Human Characteristics
+
+Every CRAFTER persona must include:
+
+- Motivation: why the person acts, accepts, avoids, or prioritizes something.
+- Goals: what the person wants to achieve.
+- Pain points: problems, pressures, frustrations, concerns, or obstacles the person wants solved or avoided.
+
+When possible, separate each into:
+
+- Internal form: broader personal, emotional, capability, confidence, or value-based motivation/goal/pain point.
+- External form: domain-, project-, task-, environment-, organization-, policy-, or technology-specific motivation/goal/pain point.
+
+Explain relationships between these characteristics. For example, show how an external task pressure connects to an internal fear, or how a project-specific goal supports a broader life goal.
+
+### 5. Generate Structured Persona Data
 
 Use role-play prompting: act as a persona researcher or requirements analyst. Use the user's context as grounding. Produce three complementary views:
 
@@ -66,7 +84,7 @@ Also include a short quote and a machine-readable taxonomy object.
 
 For a reusable prompt, read `references/prompt-template.md`.
 
-### 5. Review And Refine
+### 6. Review And Refine
 
 Critique the persona before finalizing:
 
@@ -76,10 +94,13 @@ Critique the persona before finalizing:
 - Does it help elicit or evaluate requirements?
 - Does it show enough narrative richness to feel like a plausible person?
 - Are assumptions labeled?
+- Does it include motivation, goals, and pain points?
+- Does it distinguish internal and external motivations, goals, and pain points when evidence allows?
+- Does it explain relationships between human aspects instead of treating every factor as isolated?
 
 For the full method and output schema, read `references/crafter-method.md`.
 
-### 6. Produce The Requested Output
+### 7. Produce The Requested Output
 
 Ask for the user's preferred output format when it is not specified. Supported output options:
 
@@ -136,6 +157,23 @@ Use structured data as the source of truth before making the DOCX. The default J
     "detail": "...",
     "internal": [],
     "external": []
+  },
+  "minimum_human_characteristics": {
+    "motivation": {
+      "internal": "...",
+      "external": "...",
+      "relationship": "..."
+    },
+    "goals": {
+      "internal": "...",
+      "external": "...",
+      "relationship": "..."
+    },
+    "pain_points": {
+      "internal": "...",
+      "external": "...",
+      "relationship": "..."
+    }
   },
   "assumptions": [],
   "quality_review": {

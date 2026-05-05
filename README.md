@@ -8,6 +8,8 @@ CRAFTER 2.0 is an LLM-powered persona creation approach that combines human inpu
 
 - Create user personas for requirements engineering, UX research, product discovery, service design, and human-centered design.
 - Structure persona inputs using internal and external factors.
+- Capture motivation, goals, and pain points as minimum human characteristics.
+- Distinguish general/internal information from context-specific/external information.
 - Ground generated personas in interviews, survey summaries, research notes, reviews, or domain context.
 - Produce personas as JSON, DOCX, PDF, Markdown, or presentation-ready slide content.
 - Adapt the CRAFTER workflow to Codex, ChatGPT, Claude, Gemini, Copilot, or another GenAI tool.
@@ -101,6 +103,7 @@ The script uses only Python's standard library, so it does not require installin
 
 - `SKILL.md`: Main skill instructions.
 - `references/crafter-method.md`: CRAFTER workflow, quality criteria, and refinement guidance.
+- `references/persona-taxonomy-insights.md`: Research-grounded taxonomy insights, including internal/external layers and minimum human characteristics.
 - `references/prompt-template.md`: Portable prompt template for any GenAI tool.
 - `scripts/persona_json_to_docx.py`: Convert structured persona JSON into a readable DOCX file.
 - `agents/openai.yaml`: Codex UI metadata.

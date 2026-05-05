@@ -9,6 +9,9 @@ Use the CRAFTER method to create personas that are useful for requirements engin
 - Keep humans in the loop. The user chooses the domain, context, and important persona characteristics.
 - Ground the persona in evidence. Use research notes, interviews, surveys, reviews, support tickets, or domain summaries when available.
 - Separate internal and external factors. Balance personal traits with environment and system-use context.
+- Always capture motivation, goals, and pain points as minimum human characteristics.
+- Distinguish internal and external motivations, goals, and pain points when evidence allows.
+- Explain relationships between human aspects instead of treating taxonomy fields as isolated boxes.
 - Use role-play prompting. The GenAI tool should act as a persona researcher, requirements analyst, or UX researcher.
 - Use one-shot or template guidance. Give a clear target structure so generated personas are consistent.
 - Output structured data first, then produce the user-selected artifact format.
@@ -31,7 +34,7 @@ Collect these inputs before generation:
 
 ## Internal Layer
 
-Internal factors describe characteristics inside the person:
+Internal factors describe general information about the represented individual:
 
 - Goals and motivations
 - Needs and expectations
@@ -43,10 +46,13 @@ Internal factors describe characteristics inside the person:
 - Accessibility needs
 - Emotional state
 - Decision criteria
+- Internal motivation
+- Internal goals
+- Internal pain points
 
 ## External Layer
 
-External factors describe the context around the person:
+External factors describe context-specific information about the represented individual:
 
 - Physical environment
 - Social support or social pressure
@@ -58,18 +64,40 @@ External factors describe the context around the person:
 - Cultural expectations
 - Service touchpoints
 - Task frequency and urgency
+- External motivation
+- External goals
+- External pain points
+
+The external layer should be customized to the domain and project. The same facet can carry different meanings in different domains.
+
+## Minimum Human Characteristics
+
+Every CRAFTER persona should include:
+
+- **Motivation**: why the represented individual acts, accepts, avoids, or prioritizes something.
+- **Goals**: what the represented individual wants to achieve.
+- **Pain points**: problems, pressures, frustrations, concerns, or obstacles the represented individual wants solved or avoided.
+
+Capture each characteristic in internal and external forms when possible:
+
+- Internal motivation/goals/pain points: broader life, personal, emotional, confidence, capability, or value-based drivers and tensions.
+- External motivation/goals/pain points: project-, task-, environment-, organization-, policy-, technology-, or domain-specific drivers and tensions.
+
+Explain how the internal and external forms relate to each other.
 
 ## Generation Procedure
 
 1. Restate the task and persona purpose.
 2. Summarize the provided evidence.
 3. Select the most relevant internal and external factors.
-4. Generate a persona with narrative, bullet, and mixed views.
-5. Include a short quote that captures the persona's key tension.
-6. Include the taxonomy object that records the factors used.
-7. Label assumptions.
-8. Run a quality review and revise if needed.
-9. Present the final result in the requested format.
+4. Identify motivation, goals, and pain points.
+5. Separate internal and external forms of motivation, goals, and pain points when possible.
+6. Generate a persona with narrative, bullet, and mixed views.
+7. Include a short quote that captures the persona's key tension.
+8. Include the taxonomy object that records the factors used.
+9. Label assumptions.
+10. Run a quality review and revise if needed.
+11. Present the final result in the requested format.
 
 ## Quality Review
 
@@ -77,6 +105,9 @@ Check:
 
 - Specificity: Replace generic phrases with concrete behaviors and constraints.
 - Grounding: Tie important claims to supplied evidence or mark them as assumptions.
+- Minimum content: Ensure motivation, goals, and pain points are present.
+- Layer clarity: Ensure internal/general and external/context-specific aspects are separated.
+- Relationships: Explain how motivations, goals, pain points, and external constraints interact.
 - Realism: Avoid making the persona too perfect, too helpless, or too neatly aligned with the product.
 - Diversity without stereotyping: Include context-sensitive nuance without reducing people to demographic labels.
 - Requirements usefulness: Make needs, constraints, and design implications visible.
@@ -115,9 +146,11 @@ Use JSON when the user needs machine-readable output. Use readable sections when
 6. Mixed persona view with design implications
 7. Internal taxonomy factors
 8. External taxonomy factors
-9. Requirements insights
-10. Assumptions and evidence notes
-11. Quality review
+9. Motivation, goals, and pain points
+10. Relationships between internal and external factors
+11. Requirements insights
+12. Assumptions and evidence notes
+13. Quality review
 
 For PPT/PPTX, split the content into a small deck:
 
