@@ -11,7 +11,7 @@ Use the CRAFTER method to create personas that are useful for requirements engin
 - Separate internal and external factors. Balance personal traits with environment and system-use context.
 - Use role-play prompting. The GenAI tool should act as a persona researcher, requirements analyst, or UX researcher.
 - Use one-shot or template guidance. Give a clear target structure so generated personas are consistent.
-- Output structured data. Include human-readable persona sections and machine-readable taxonomy.
+- Output structured data first, then produce a readable persona document for end users.
 - Review for realism. Check for vague, over-polished, stereotyped, or unsupported claims.
 
 ## Inputs
@@ -68,6 +68,7 @@ External factors describe the context around the person:
 6. Include the taxonomy object that records the factors used.
 7. Label assumptions.
 8. Run a quality review and revise if needed.
+9. Present the final result as a readable DOCX document when file generation is available.
 
 ## Quality Review
 
@@ -98,3 +99,21 @@ Check:
 - Add design implications and requirement cues.
 - Remove unsupported sensitive attributes.
 - Split into multiple personas if one persona is carrying conflicting user types.
+
+## Document Output
+
+The final persona should be easy for researchers, designers, students, and stakeholders to read. Prefer DOCX when possible, using this section order:
+
+1. Persona name, domain, and target user group
+2. Quote
+3. Executive summary
+4. Narrative
+5. Bullet summary
+6. Mixed persona view with design implications
+7. Internal taxonomy factors
+8. External taxonomy factors
+9. Requirements insights
+10. Assumptions and evidence notes
+11. Quality review
+
+Keep raw JSON as a source format, not the main reader-facing format.

@@ -34,7 +34,7 @@ Instructions:
 2. Balance internal and external factors.
 3. Avoid stereotypes, generic traits, and overly idealized behavior.
 4. Create a persona that is useful for requirements engineering, UX research, or product design decisions.
-5. Return JSON only using this structure:
+5. First create structured persona data using this JSON shape:
 
 {
   "result": {
@@ -72,6 +72,21 @@ Instructions:
   }
 }
 ```
+
+6. Then transform the persona into a DOCX-ready document with these sections:
+
+- Title: persona name and domain
+- Quote
+- Executive summary
+- Narrative
+- Goals, needs, frustrations, and constraints
+- Internal factors
+- External factors
+- Requirements or design insights
+- Assumptions and evidence notes
+- Quality review
+
+If you can create files, produce the final answer as a `.docx` file. If you cannot create files, produce clean Markdown that can be copied into Word or Google Docs. Do not show raw JSON unless asked.
 
 ## Follow-Up Refinement Prompt
 

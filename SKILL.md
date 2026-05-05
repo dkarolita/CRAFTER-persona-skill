@@ -1,13 +1,13 @@
 ---
 name: crafter-persona
-description: Create high-quality user personas using the CRAFTER 2.0 workflow and thinking. Use when Codex or another GenAI tool needs to generate, critique, refine, or structure personas for requirements engineering, UX research, product discovery, service design, or human-centered design using taxonomy-guided internal/external factors, context grounding, role-play prompting, one-shot style guidance, human-in-the-loop refinement, and structured persona outputs.
+description: Create high-quality user personas using the CRAFTER 2.0 workflow and thinking, preferably as readable DOCX persona documents. Use when Codex or another GenAI tool needs to generate, critique, refine, or structure personas for requirements engineering, UX research, product discovery, service design, or human-centered design using taxonomy-guided internal/external factors, context grounding, role-play prompting, one-shot style guidance, human-in-the-loop refinement, structured persona data, and user-friendly document output.
 ---
 
 # CRAFTER Persona
 
 ## Overview
 
-Use this skill to create personas with the CRAFTER 2.0 method, independent of any specific app, model, or platform. The method combines human input, domain grounding, taxonomy-guided persona characteristics, role-play prompting, optional retrieved/context documents, structured JSON output, and quality review for realism and usefulness.
+Use this skill to create personas with the CRAFTER 2.0 method, independent of any specific app, model, or platform. The method combines human input, domain grounding, taxonomy-guided persona characteristics, role-play prompting, optional retrieved/context documents, structured persona data, DOCX-ready presentation, and quality review for realism and usefulness.
 
 ## First Steps
 
@@ -15,7 +15,7 @@ Use this skill to create personas with the CRAFTER 2.0 method, independent of an
 2. Ask for or infer the domain, target user group, available evidence, and desired output language.
 3. Gather human-provided context before generating: research notes, interviews, survey summaries, stakeholder assumptions, product constraints, market/domain facts, or usage scenarios.
 4. Separate persona factors into internal and external layers.
-5. Generate a structured persona, then critique and refine it for specificity, realism, and lack of stereotypes.
+5. Generate a structured persona, critique and refine it, then produce a readable persona document.
 
 ## CRAFTER Workflow
 
@@ -54,7 +54,7 @@ Use two layers:
 
 Choose only factors that matter for the current design or requirements problem.
 
-### 4. Generate Structured Persona
+### 4. Generate Structured Persona Data
 
 Use role-play prompting: act as a persona researcher or requirements analyst. Use the user's context as grounding. Produce three complementary views:
 
@@ -79,9 +79,34 @@ Critique the persona before finalizing:
 
 For the full method and output schema, read `references/crafter-method.md`.
 
-## Output Shape
+### 6. Produce A Persona Document
 
-Prefer JSON or Markdown plus JSON. The default JSON keys are:
+Prefer `.docx` as the final user-facing output when the environment can create files. The document should read like a research artifact, not raw JSON.
+
+Use this order:
+
+1. Persona title and domain
+2. Short quote
+3. Overview box or summary
+4. Narrative persona story
+5. Key goals, needs, frustrations, and constraints
+6. Internal factors
+7. External factors
+8. Requirements or design insights
+9. Assumptions and evidence notes
+10. Quality review
+
+When running in Codex or another coding environment, generate structured JSON first, then convert it to DOCX with:
+
+```bash
+python3 scripts/persona_json_to_docx.py persona.json persona.docx
+```
+
+When running in a GenAI tool that cannot create files, output a DOCX-ready Markdown document and tell the user it can be copied into Word or Google Docs.
+
+## Structured Source Shape
+
+Use structured data as the source of truth before making the DOCX. The default JSON keys are:
 
 ```json
 {
@@ -110,6 +135,17 @@ Prefer JSON or Markdown plus JSON. The default JSON keys are:
 
 If integrating with the original CRAFTER 2.0 application contract, use `narative` instead of `narrative`.
 
+## DOCX Style Guidance
+
+Keep the document easy to scan:
+
+- Use clear headings.
+- Keep paragraphs short.
+- Use bullets for goals, needs, frustrations, constraints, and insights.
+- Put internal and external taxonomy factors in separate sections.
+- Include assumptions and quality review so readers can judge trustworthiness.
+- Avoid dumping raw JSON in the final document unless the user requests it.
+
 ## Platform Adaptation
 
-This skill can be used in any GenAI tool. If the tool does not support skills, paste the content of `SKILL.md` and the prompt template into the system/developer instruction area, then provide the persona context as the user message.
+This skill can be used in any GenAI tool. If the tool does not support skills, paste the content of `SKILL.md` and the prompt template into the system/developer instruction area, then provide the persona context as the user message. Ask for DOCX output when the tool supports file generation; otherwise ask for DOCX-ready Markdown.

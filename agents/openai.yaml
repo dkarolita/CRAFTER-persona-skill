@@ -1,4 +1,4 @@
 interface:
   display_name: "CRAFTER Persona"
-  short_description: "Work with CRAFTER 2.0 persona generation workflows."
-  default_prompt: "Use the CRAFTER Persona skill to understand, extend, debug, or document CRAFTER 2.0 persona generation, RAG contributions, prompts, APIs, and data models."
+  short_description: "Create CRAFTER-style persona documents."
+  default_prompt: "Use the CRAFTER Persona skill to create a grounded persona using internal/external taxonomy factors, then produce the final result as a readable DOCX document."

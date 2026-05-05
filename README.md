@@ -1,15 +1,15 @@
 # CRAFTER Persona Skill
 
-An open-source, platform-neutral skill for creating user personas using the CRAFTER 2.0 workflow and thinking.
+An open-source, platform-neutral skill for creating user personas using the CRAFTER 2.0 workflow and thinking. The preferred final output is a readable `.docx` persona document.
 
-CRAFTER 2.0 is an LLM-powered persona creation approach that combines human input, context grounding, internal and external taxonomy factors, role-play prompting, structured persona output, and quality review.
+CRAFTER 2.0 is an LLM-powered persona creation approach that combines human input, context grounding, internal and external taxonomy factors, role-play prompting, structured persona data, readable document output, and quality review.
 
 ## What This Skill Helps With
 
 - Create user personas for requirements engineering, UX research, product discovery, service design, and human-centered design.
 - Structure persona inputs using internal and external factors.
 - Ground generated personas in interviews, survey summaries, research notes, reviews, or domain context.
-- Produce structured persona outputs with narrative, bullet, mixed, quote, taxonomy, assumptions, and quality review.
+- Produce readable persona documents with narrative, bullet, mixed, quote, taxonomy, assumptions, requirements insights, and quality review.
 - Adapt the CRAFTER workflow to Codex, ChatGPT, Claude, Gemini, Copilot, or another GenAI tool.
 
 ## Use In Codex
@@ -25,6 +25,12 @@ Then ask Codex:
 
 ```text
 Use the CRAFTER Persona skill to create a persona for elderly users of a mobile health app in Indonesia.
+```
+
+When Codex can create files, ask:
+
+```text
+Create the final persona as a DOCX file.
 ```
 
 ## Use In Any GenAI Tool
@@ -47,6 +53,8 @@ Language:
 Detail level:
 ```
 
+If the tool supports file generation, ask it to create a `.docx`. If it does not, ask for DOCX-ready Markdown that can be pasted into Word or Google Docs.
+
 ## Example
 
 ```text
@@ -62,11 +70,22 @@ Language: English
 Detail level: medium
 ```
 
+## Convert Persona JSON To DOCX
+
+If you have a persona JSON file, use the bundled converter:
+
+```bash
+python3 scripts/persona_json_to_docx.py persona.json persona.docx
+```
+
+The script uses only Python's standard library, so it does not require installing extra packages.
+
 ## Files
 
 - `SKILL.md`: Main skill instructions.
 - `references/crafter-method.md`: CRAFTER workflow, quality criteria, and refinement guidance.
 - `references/prompt-template.md`: Portable prompt template for any GenAI tool.
+- `scripts/persona_json_to_docx.py`: Convert structured persona JSON into a readable DOCX file.
 - `agents/openai.yaml`: Codex UI metadata.
 - `LICENSE`: MIT license.
 
