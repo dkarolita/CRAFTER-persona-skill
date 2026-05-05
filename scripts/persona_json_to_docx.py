@@ -16,6 +16,15 @@ from pathlib import Path
 from typing import Any
 from xml.sax.saxutils import escape
 
+MINIMUM_CHARACTERISTIC_LABELS = {
+    "motivation": "Motivation",
+    "goals": "Goals",
+    "pain_points": "Pain Points",
+}
+
+QUALITY_TEXT_KEYS = ("grounding", "realism")
+QUALITY_LIST_KEYS = ("risks", "refinement_suggestions")
+
 
 def as_text(value: Any) -> str:
     if value is None:
@@ -99,11 +108,11 @@ def quality_lines(quality: Any) -> list[str]:
     if not isinstance(quality, dict):
         return normalize_lines(quality)
     lines = []
-    for key in ["grounding", "realism"]:
+    for key in QUALITY_TEXT_KEYS:
         value = as_text(quality.get(key))
         if value:
             lines.append(f"{key.replace('_', ' ').title()}: {value}")
-    for key in ["risks", "refinement_suggestions"]:
+    for key in QUALITY_LIST_KEYS:
         values = normalize_lines(quality.get(key))
         if values:
             label = key.replace("_", " ").title()
@@ -115,12 +124,7 @@ def minimum_characteristic_lines(value: Any) -> list[str]:
     if not isinstance(value, dict):
         return normalize_lines(value)
     lines = []
-    labels = {
-        "motivation": "Motivation",
-        "goals": "Goals",
-        "pain_points": "Pain Points",
-    }
-    for key, label in labels.items():
+    for key, label in MINIMUM_CHARACTERISTIC_LABELS.items():
         item = value.get(key)
         if isinstance(item, dict):
             internal = as_text(item.get("internal"))
@@ -139,7 +143,17 @@ def minimum_characteristic_lines(value: Any) -> list[str]:
     return lines
 
 
+def unwrap_persona_payload(data: dict[str, Any]) -> dict[str, Any]:
+    """Accept common wrappers while keeping the documented schema primary."""
+    for key in ("persona", "data"):
+        value = data.get(key)
+        if isinstance(value, dict) and "result" in value:
+            return value
+    return data
+
+
 def build_document(data: dict[str, Any]) -> str:
+    data = unwrap_persona_payload(data)
     result = data.get("result", {})
     taxonomy = data.get("taxonomy", {})
     domain = taxonomy.get("domain", {}) if isinstance(taxonomy, dict) else {}
@@ -185,13 +199,26 @@ def build_document(data: dict[str, Any]) -> str:
         )
 
     parts.extend(
-        section("Requirements Or Design Insights", data.get("requirements_insights"), bullets=True)
+        section(
+            "Requirements Or Design Insights",
+            data.get("requirements_insights"),
+            bullets=True,
+        )
     )
-    parts.extend(section("Assumptions And Evidence Notes", data.get("assumptions"), bullets=True))
+    parts.extend(
+        section(
+            "Assumptions And Evidence Notes",
+            data.get("assumptions"),
+            bullets=True,
+        )
+    )
 
     q_lines = quality_lines(data.get("quality_review"))
     if q_lines:
-        parts.extend([heading("Quality Review", 1)] + [bullet(line) for line in q_lines])
+        parts.extend(
+            [heading("Quality Review", 1)]
+            + [bullet(line) for line in q_lines]
+        )
 
     body = "".join(parts)
     return f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -253,6 +280,7 @@ NUMBERING = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
 
 def write_docx(data: dict[str, Any], output_path: Path) -> None:
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     document_xml = build_document(data)
     with zipfile.ZipFile(output_path, "w", zipfile.ZIP_DEFLATED) as docx:
         docx.writestr("[Content_Types].xml", CONTENT_TYPES)
@@ -263,22 +291,39 @@ def write_docx(data: dict[str, Any], output_path: Path) -> None:
         docx.writestr("word/numbering.xml", NUMBERING)
 
 
-def main() -> int:
+def load_persona_json(input_path: Path) -> dict[str, Any]:
+    try:
+        data = json.loads(input_path.read_text(encoding="utf-8"))
+    except OSError as exc:
+        raise ValueError(f"Could not read input file: {exc}") from exc
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"Input is not valid JSON: {exc}") from exc
+
+    if not isinstance(data, dict):
+        raise ValueError("Input JSON must be an object.")
+    return data
+
+
+def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Convert CRAFTER persona JSON into a DOCX document."
     )
     parser.add_argument("input_json", type=Path, help="Path to persona JSON file")
     parser.add_argument("output_docx", type=Path, help="Path for output DOCX file")
-    args = parser.parse_args()
+    return parser.parse_args()
+
+
+def main() -> int:
+    args = parse_args()
 
     try:
-        data = json.loads(args.input_json.read_text(encoding="utf-8"))
-    except Exception as exc:
-        print(f"Failed to read JSON: {exc}", file=sys.stderr)
+        data = load_persona_json(args.input_json)
+    except ValueError as exc:
+        print(exc, file=sys.stderr)
         return 1
 
-    if not isinstance(data, dict):
-        print("Input JSON must be an object.", file=sys.stderr)
+    if args.output_docx.suffix.lower() != ".docx":
+        print("Output path must end with .docx.", file=sys.stderr)
         return 1
 
     try:

@@ -103,6 +103,7 @@ The script uses only Python's standard library, so it does not require installin
 
 - `SKILL.md`: Main skill instructions.
 - `references/crafter-method.md`: CRAFTER workflow, quality criteria, and refinement guidance.
+- `references/research-paper-analysis.md`: Academic summary of the persona taxonomy paper and its implications for CRAFTER.
 - `references/persona-taxonomy-insights.md`: Research-grounded taxonomy insights, including internal/external layers and minimum human characteristics.
 - `references/prompt-template.md`: Portable prompt template for any GenAI tool.
 - `scripts/persona_json_to_docx.py`: Convert structured persona JSON into a readable DOCX file.

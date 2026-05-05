@@ -9,7 +9,7 @@ description: Create high-quality user personas using the CRAFTER 2.0 workflow an
 
 Use this skill to create personas with the CRAFTER 2.0 method, independent of any specific app, model, or platform. The method combines human input, domain grounding, taxonomy-guided persona characteristics, role-play prompting, optional retrieved/context documents, structured persona data, format-specific presentation, and quality review for realism and usefulness.
 
-CRAFTER's taxonomy separates persona information into an internal layer and an external layer. It treats motivation, goals, and pain points as minimum human characteristics that every persona should capture. Read `references/persona-taxonomy-insights.md` when the request involves taxonomy design, persona quality, minimum persona content, internal/external layers, or research background.
+CRAFTER's taxonomy separates persona information into an internal layer and an external layer. It treats motivation, goals, and pain points as minimum human characteristics that every persona should capture. Read `references/persona-taxonomy-insights.md` when the request involves taxonomy design, persona quality, minimum persona content, internal/external layers, or research background. Read `references/research-paper-analysis.md` when the user asks about the academic basis, research contribution, methodology, findings, limitations, or citations.
 
 ## First Steps
 
